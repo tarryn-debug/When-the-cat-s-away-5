@@ -28,7 +28,6 @@
       padding: 0;
     }
 
-    /* Page Container with Soft Background for Frame Drop Shadow */
     body {
       font-family: var(--font-main);
       background-color: #f8f9fa;
@@ -40,7 +39,6 @@
       margin: 0;
     }
 
-    /* Outer Container with Rounded Corners & Soft Drop Shadow */
     .interactive-container {
       width: 100%;
       max-width: 1120px;
@@ -81,7 +79,6 @@
       z-index: 2;
     }
 
-    /* Title at 48px, Black, Slow 1.6s Slide Up */
     .cover-title {
       font-size: 48px;
       font-weight: 700;
@@ -93,7 +90,6 @@
       animation-delay: 0.2s;
     }
 
-    /* Start Button with 1s Delay and 0.8s Fade In */
     .btn-start {
       align-self: flex-start;
       background-color: #2E45B8;
@@ -136,30 +132,18 @@
       display: block;
     }
 
-    /* Keyframes for Title Bottom-Up Motion */
     @keyframes slideUpFade {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Keyframes for Button Fade In */
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* ========================================================= */
-    /* 2. HEADER & STAGE STYLES (HEADER LOGO REMOVED)           */
+    /* 2. HEADER & STAGE STYLES                                 */
     /* ========================================================= */
     .app-header {
       display: flex;
@@ -222,30 +206,41 @@
       object-fit: contain;
     }
 
-    /* PINS */
+    /* MAP PINS WITH POP-UP ANIMATION */
     .pin-btn {
       position: absolute;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0);
       background: none;
       border: none;
       cursor: pointer;
       z-index: 10;
+      opacity: 0;
       transition: transform 0.2s ease;
     }
 
-    .pin-btn:hover, .pin-btn:focus-visible {
-      transform: translate(-50%, -50%) scale(1.25);
+    .pin-btn.animated {
+      animation: pinPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
-    .pin-icon {
-      width: 22px;
-      height: 30px;
-      fill: var(--color-pin-unviewed);
+    .pin-btn:hover, .pin-btn:focus-visible {
+      transform: translate(-50%, -50%) scale(1.25) !important;
+    }
+
+    .pin-img {
+      width: 24px;
+      height: auto;
       filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));
     }
 
-    .pin-btn.viewed .pin-icon {
-      fill: var(--color-pin-viewed);
+    @keyframes pinPop {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
 
     .pin-ukraine    { top: 28%; left: 54%; }
@@ -257,7 +252,7 @@
     .pin-southchina { top: 54%; left: 80%; }
 
     /* ========================================================= */
-    /* 3. MODALS & SPOTLIGHT OVERLAYS (INSTRUCTION MODAL UPDATED)*/
+    /* 3. MODALS & SPOTLIGHT OVERLAYS                            */
     /* ========================================================= */
     .dark-overlay {
       position: absolute;
@@ -269,7 +264,7 @@
       z-index: 50;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.5s ease;
     }
 
     .dark-overlay.active {
@@ -347,11 +342,10 @@
       object-fit: cover;
     }
 
-    /* CENTERED INSTRUCTION CARD WITH OVERLAPPING BADGE GRAPHIC */
     .center-modal {
       background: #ffffff;
       border-radius: 8px;
-      padding: 3rem 2.5rem 2.25rem;
+      padding: 3.25rem 2.5rem 2.25rem;
       text-align: center;
       max-width: 520px;
       box-shadow: 0 12px 32px rgba(0,0,0,0.4);
@@ -359,6 +353,7 @@
       margin-top: 2rem;
     }
 
+    /* BADGE GRAPHIC: UPDATED TO PastedVector-34.svg */
     .modal-badge-graphic {
       position: absolute;
       top: -42px;
@@ -377,7 +372,6 @@
       line-height: 1.6;
     }
 
-    /* CONTINUE BUTTON COLOR STATES */
     .action-btn {
       background: #2E45B8;
       color: #ffffff;
@@ -456,7 +450,7 @@
       </div>
     </section>
 
-    <!-- HEADER (LOGO REMOVED) & MAIN MAP STAGE -->
+    <!-- HEADER & MAIN MAP STAGE -->
     <header class="app-header">
       <div class="brand-section">
         <span class="sub-title">When the cat's away</span>
@@ -477,33 +471,33 @@
     <main class="stage-view">
       <img src="Resources/PastedVector-16.svg" alt="World Map" class="world-map-svg">
 
-      <!-- Map Pins -->
+      <!-- Map Pins using PastedVector-25.svg -->
       <button class="pin-btn pin-ukraine" data-id="ukraine" aria-label="Ukraine Conflict">
-        <svg class="pin-icon" viewBox="0 0 24 32"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12zm0 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+        <img src="Resources/PastedVector-25.svg" alt="Pin" class="pin-img">
       </button>
       <button class="pin-btn pin-turkey" data-id="turkey" aria-label="Turkey Intervention">
-        <svg class="pin-icon" viewBox="0 0 24 32"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12zm0 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+        <img src="Resources/PastedVector-25.svg" alt="Pin" class="pin-img">
       </button>
       <button class="pin-btn pin-syria" data-id="syria" aria-label="Syria Red Line">
-        <svg class="pin-icon" viewBox="0 0 24 32"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12zm0 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+        <img src="Resources/PastedVector-25.svg" alt="Pin" class="pin-img">
       </button>
       <button class="pin-btn pin-georgia" data-id="georgia" aria-label="Georgia War">
-        <svg class="pin-icon" viewBox="0 0 24 32"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12zm0 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+        <img src="Resources/PastedVector-25.svg" alt="Pin" class="pin-img">
       </button>
       <button class="pin-btn pin-yemen" data-id="yemen" aria-label="Yemen Crisis">
-        <svg class="pin-icon" viewBox="0 0 24 32"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12zm0 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+        <img src="Resources/PastedVector-25.svg" alt="Pin" class="pin-img">
       </button>
       <button class="pin-btn pin-indiachina" data-id="indiachina" aria-label="India-China Conflict">
-        <svg class="pin-icon" viewBox="0 0 24 32"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12zm0 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+        <img src="Resources/PastedVector-25.svg" alt="Pin" class="pin-img">
       </button>
       <button class="pin-btn pin-southchina" data-id="southchina" aria-label="South China Sea">
-        <svg class="pin-icon" viewBox="0 0 24 32"><path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12zm0 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+        <img src="Resources/PastedVector-25.svg" alt="Pin" class="pin-img">
       </button>
 
-      <!-- INTRO OVERLAY MODAL (WITH TOP OVERLAPPING BADGE GRAPHIC) -->
+      <!-- INTRO OVERLAY MODAL (BADGE GRAPHIC UPDATED TO PastedVector-34.svg) -->
       <div class="dark-overlay" id="intro-modal">
         <div class="center-modal">
-          <img src="Resources/PastedVector-10.svg" alt="Instruction Pin Graphic" class="modal-badge-graphic">
+          <img src="Resources/PastedVector-34.svg" alt="Instruction House Graphic" class="modal-badge-graphic">
           <h2>The decline of US dominance has had significant repercussions around the world. Engage with this interactive infographic by clicking on the highlighted countries on the map to explore some of the consequences of the US’ retreat or non-intervention.</h2>
           <button class="action-btn" id="intro-continue-btn">Continue</button>
         </div>
@@ -600,10 +594,20 @@
 
     const viewedMap = new Set();
 
-    // 1. CLICK START ON COVER PAGE
+    // 1. CLICK START: HIDE COVER, ANIMATE MAP PINS SEQUENTIALLY, THEN SHOW INSTRUCTION MODAL
     document.getElementById('btn-start-cover').addEventListener('click', () => {
       coverView.classList.add('hidden');
-      introModal.classList.add('active');
+      
+      const pins = document.querySelectorAll('.pin-btn');
+      pins.forEach((pin, index) => {
+        setTimeout(() => {
+          pin.classList.add('animated');
+        }, index * 120);
+      });
+
+      setTimeout(() => {
+        introModal.classList.add('active');
+      }, pins.length * 120 + 300);
     });
 
     // 2. CLICK CONTINUE ON INTRO OVERLAY
@@ -646,7 +650,10 @@
 
     document.getElementById('btn-reset').addEventListener('click', () => {
       viewedMap.clear();
-      document.querySelectorAll('.pin-btn').forEach(p => p.classList.remove('viewed'));
+      document.querySelectorAll('.pin-btn').forEach(p => {
+        p.classList.remove('viewed');
+        p.classList.remove('animated');
+      });
       completionModal.classList.remove('active');
       coverView.classList.remove('hidden');
     });
